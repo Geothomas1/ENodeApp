@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //use db connect app.use before root connection 
-app.connect((err)=>{
+db.connect((err)=>{
   if(err)
   console.log("Connection Error"+err)
   else
