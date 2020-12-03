@@ -22,6 +22,9 @@ router.post('/signup',(req,res)=>{
   userHelper.doSignup(req.body).then((response)=>{
     console.log(response)
   })
+})
+router.post('/login',(req,res)=>{
+  userHelper.doLogin(req.body)
 
 })
 
