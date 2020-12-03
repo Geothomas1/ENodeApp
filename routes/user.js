@@ -24,7 +24,13 @@ router.post('/signup',(req,res)=>{
   })
 })
 router.post('/login',(req,res)=>{
-  userHelper.doLogin(req.body)
+  userHelper.doLogin(req.body).then((response)=>{
+    if(response.loginStatus){
+      res.redirect('/')
+    }else{
+      res.redirect('/login')
+    }
+  })
 
 })
 
