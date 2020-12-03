@@ -7,7 +7,7 @@ var userHelper=require('../helpers/user-helpers')
 router.get('/', function (req, res, next) {
   productHelper.getAllProducts().then((products)=>{
     console.log(products)
-    res.render('user/view-products', { admin: false, products })
+    res.render('user/view-products', {products })
 
   })
 });
