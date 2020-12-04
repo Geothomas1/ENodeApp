@@ -1,11 +1,12 @@
 var express = require('express');
 const { route } = require('./user');
 var router = express.Router();
-var productHelper = require('../helpers/product-helper')
+var productHelper = require('../helpers/product-helper');
+const { response } = require('../app');
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   productHelper.getAllProducts().then((products)=>{
-    console.log(products)
+    //console.log(products)
     res.render('admin/view-products', { admin: true, products })
 
   })
@@ -30,6 +31,21 @@ router.post('/add-product', (req, res) => {
     })
 
   })
+})
+//delete product
+/*
+insetd of this way it possible to pass data from as delet-product?id={{this_id}} from view=product.hbs
+to get the value here take it as !
+let productId=req.query.id
+
+*/
+router.get('/delete-product/:id',(req,res)=>{
+  let productId=req.params.id
+  console.log(productId)
+  productHelper.deleteProduct(productId).then((response)=>{
+    res.redirect('/admin/')
+  })
+
 })
 
 module.exports = router;

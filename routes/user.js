@@ -21,7 +21,7 @@ router.get('/', function (req, res, next) {
 
   })
 });
-
+//login verification
 router.get('/login',(req,res)=>{
   if(req.session.loggedIn){
     res.redirect('/')
@@ -31,6 +31,7 @@ router.get('/login',(req,res)=>{
   req.session.loginErr=false
   }
 })
+//signup page route
 router.get('/signup',(req,res)=>{
   res.render('user/signup')
 })
@@ -39,6 +40,7 @@ router.post('/signup',(req,res)=>{
     //console.log(response)
   })
 })
+//login verification
 router.post('/login',(req,res)=>{
   userHelper.doLogin(req.body).then((response)=>{
     if(response.loginStatus){
@@ -52,10 +54,12 @@ router.post('/login',(req,res)=>{
   })
 
 })
+//logout
 router.get('/logout',(req,res)=>{
   req.session.destroy()
   res.redirect('/')
 })
+//cart verification
 router.get('/cart',verifyLogin,(req,res)=>{
 
   res.render('user/cart')

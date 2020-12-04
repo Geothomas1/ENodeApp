@@ -12,6 +12,8 @@
           <th scope="col">Descriptions</th>
           <th scope="col">Price</th>
           <th scope="col">Images</th>
+          <th scope="col">Edit</th>
+          
         </tr>
       </thead>
       <tbody>
@@ -23,6 +25,10 @@
           <td>{{this.description}}</td>
           <td>{{this.price}}</td>
           <td><img src="/product-images/{{this._id}}.jpeg" alt="Test image" style="width:100px;height:100px;"></td>
+          <td><a href="/admin/edit-product/{{this._id}}" class="btn btn-primary">Edit</a></td>
+          <td><a href="/admin/delete-product/{{this._id}}" class="btn btn-danger">Delete</a></td>
+          
+
         </tr>
         {{/each}}
       </tbody>
