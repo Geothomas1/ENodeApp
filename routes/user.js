@@ -48,8 +48,16 @@ router.get('/logout',(req,res)=>{
   req.session.destroy()
   res.redirect('/')
 })
-router.get('/cart',(req,res)=>{
- 
+router.get(verifyLogin,'/cart',(req,res)=>{
+
   res.render('user/cart')
 })
+const verifyLogin=(req,res,next)=>{
+  if(req.session.loggedIn){
+    next()
+  }else{
+    req.render('/login')
+  }
+}
+
 module.exports = router;
