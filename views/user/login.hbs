@@ -3,6 +3,11 @@
 <div class="container mt-5 pl-5">
   <h2>Login</h2>
 <form action="/login" method="POST">
+{{#if loginErr}}
+<div class="alert alert-danger">
+  <strong> Incorrect Username or Password</strong>
+</div>
+{{/if}}
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
     <input type="email" class="form-control" id="exampleInputEmail1"  placeholder="Enter Email" name="Email">
