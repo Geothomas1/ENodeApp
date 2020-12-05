@@ -62,13 +62,15 @@ router.get('/logout', (req, res) => {
   res.redirect('/')
 })
 //cart verification
-router.get('/cart', verifyLogin, (req,res) => {
+router.get('/cart', verifyLogin, (req, res) => {
 
   res.render('user/cart')
 })
 
-router.get('/add-to-cart/:id',verifyLogin,(req,res)=>{
-  userHelper.addToCart(req.params.id,req.session.user._id).then(()=>{
+//add product to cart
+
+router.get('/add-to-cart/:id', verifyLogin, (req, res) => {
+  userHelper.addToCart(req.params.id, req.session.user._id).then(() => {
     res.redirect('/')
   })
 
