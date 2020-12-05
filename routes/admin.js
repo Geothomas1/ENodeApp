@@ -48,4 +48,8 @@ router.get('/delete-product/:id',(req,res)=>{
 
 })
 
+router.get('/edit-product/:id',(req,res)=>{
+  res.render('./admin/edit-product')
+})
+
 module.exports = router;
