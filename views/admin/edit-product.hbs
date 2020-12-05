@@ -3,25 +3,26 @@
         <div class="col-md-4">
             <h2 class="text-center">Edit Products</h2>
 
-            <form action="add-product" method="POST" enctype="multipart/form-data">
+            <form action="/admin/edit-product/{{product._id}}" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="Name">Prodcut Name</label>
-                    <input type="text" class="form-control" name="name">
+                    <input type="text" class="form-control" name="name" value="{{product.name}}">
                 </div>
                 <div class="form-group">
                     <label for="Catoegory">Catoegory</label>
-                    <input type="text" class="form-control" name="catoegory">
+                    <input type="text" class="form-control" name="catoegory" value="{{product.catoegory}}">
                 </div>
                 <div class="form-group">
                     <label for="Description">Description</label>
-                    <input type="text" class="form-control" name="description">
+                    <input type="text" class="form-control" name="description" value="{{product.description}}">
                 </div>
                  <div class="form-group">
                     <label for="Price">Price</label>
-                    <input type="text" class="form-control" name="price">
+                    <input type="text" class="form-control" name="price" value="{{product.price}}">
                 </div>
                 <div class="form-group">
                     <label for="Image">Image</label>
+                    <img src="/product-images/{{product._id}}.jpeg" style="width: 100px; height:auto">
                     <input type="file" class="form-control" name="image">
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
