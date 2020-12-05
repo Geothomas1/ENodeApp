@@ -22,11 +22,16 @@
                 </div>
                 <div class="form-group">
                     <label for="Image">Image</label>
-                    <img src="/product-images/{{product._id}}.jpeg" style="width: 100px; height:auto">
-                    <input type="file" class="form-control" name="image">
+                    <img src="/product-images/{{product._id}}.jpeg" style="width: 100px; height:auto" id="imgView" class="pt-3">
+                    <input type="file" class="form-control" name="image" onchange="viewImage(event)">
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>
 </section>
+<script>
+    function viewImage(event){
+        document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+       }
+</script>
