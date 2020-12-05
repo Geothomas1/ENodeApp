@@ -1,71 +1,77 @@
 var express = require('express');
 const { response } = require('../app');
 var router = express.Router();
-var productHelper=require('../helpers/product-helper')
-var userHelper=require('../helpers/user-helpers')
+var productHelper = require('../helpers/product-helper')
+var userHelper = require('../helpers/user-helpers')
 //verifylogin
-const verifyLogin=(req,res,next)=>{
-  if(req.session.loggedIn){
+const verifyLogin = (req, res, next) => {
+  if (req.session.loggedIn) {
     next()
-  }else{
+  } else {
     res.redirect('/login')
   }
 }
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  let user=req.session.user
+  let user = req.session.user
   console.log(user)
-  productHelper.getAllProducts().then((products)=>{
+  productHelper.getAllProducts().then((products) => {
     //console.log(products)
-    res.render('user/view-products', {products,user})
+    res.render('user/view-products', { products, user })
 
   })
 });
 //login verification
-router.get('/login',(req,res)=>{
-  if(req.session.loggedIn){
+router.get('/login', (req, res) => {
+  if (req.session.loggedIn) {
     res.redirect('/')
-  }else
-  {
-  res.render('user/login',{"loginErr":req.session.loginErr})
-  req.session.loginErr=false
+  } else {
+    res.render('user/login', { "loginErr": req.session.loginErr })
+    req.session.loginErr = false
   }
 })
 //signup page route
-router.get('/signup',(req,res)=>{
+router.get('/signup', (req, res) => {
   res.render('user/signup')
 })
-router.post('/signup',(req,res)=>{
-  userHelper.doSignup(req.body).then((response)=>{
+router.post('/signup', (req, res) => {
+  userHelper.doSignup(req.body).then((response) => {
     //console.log(response)
-    req.session.loggedIn=true
-    req.session.user=response.user
+    req.session.loggedIn = true
+    req.session.user = response.user
     res.redirect('/login')
   })
 })
 //login verification
-router.post('/login',(req,res)=>{
-  userHelper.doLogin(req.body).then((response)=>{
-    if(response.loginStatus){
-      req.session.loggedIn=true
-      req.session.user=response.user
+router.post('/login', (req, res) => {
+  userHelper.doLogin(req.body).then((response) => {
+    if (response.loginStatus) {
+      req.session.loggedIn = true
+      req.session.user = response.user
       res.redirect('/')
-    }else{
-      req.session.loginErr=true
+    } else {
+      req.session.loginErr = true
       res.redirect('/login')
     }
   })
 
 })
 //logout
-router.get('/logout',(req,res)=>{
+router.get('/logout', (req, res) => {
   req.session.destroy()
   res.redirect('/')
 })
 //cart verification
-router.get('/cart',verifyLogin,(req,res)=>{
+router.get('/cart', verifyLogin, (req,res) => {
 
   res.render('user/cart')
+})
+
+router.get('/add-to-cart/:id',verifyLogin,(req,res)=>{
+  userHelper.addToCart(req.params.id,req.session.user._id).then(()=>{
+    res.redirect('/')
+  })
+
 })
 
 
