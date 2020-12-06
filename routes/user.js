@@ -63,6 +63,7 @@ router.get('/logout', (req, res) => {
 })
 //cart verification
 router.get('/cart', verifyLogin, (req, res) => {
+  let product=userHelper.getCartProduct(req.session.user._id)
 
   res.render('user/cart')
 })

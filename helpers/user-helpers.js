@@ -46,6 +46,14 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
             let userCart=await db.get().collection(collection.CART_COLLECTION).findOne({user:objectId(userId)})
             if(userCart){
+                db.get().collection(collection.CART_COLLECTION).updateOne({user:objectId(userId)},{
+                    
+                        $push:{product:objectId(productId)}
+
+                    
+                }).then((response)=>{
+                    resolve()
+                })
 
             }else{
                 let cartObj={
@@ -56,6 +64,22 @@ module.exports={
                 resolve()    
                 })
             }
+        })
+    },
+    //get product from cart from there is product id using that product id write a aggregate function to get details of product from product collections
+    getCartProduct:(productId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let cartItem=await db.get().collection(collection.CART_COLLECTION).aggregate([
+                {
+                    $match:{user:objectId(userId)}
+                },
+                {
+                    $lookup:{
+                        from :product,
+                        localField:''
+                    }
+                }
+            ])
         })
     }
 }
