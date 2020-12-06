@@ -12,7 +12,8 @@
                     <a class="nav-link" href="/">Products <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/cart">Cart <span class="badge badge-success">{{cartCount}}</span></a>
+                    <a class="nav-link" href="/cart">Cart <span class="badge badge-success"
+                            id="cart-count">{{cartCount}}</span></a>
                 </li>
                 {{#if user}}
 
@@ -24,25 +25,26 @@
                 {{/if}}
 
             </ul>
-            
+
             <div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    {{#if user}}
-     {{user.Name}}
-     {{else}}
-     Account
-    {{/if}}
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      {{#if user}}
-     <a class="dropdown-item" href="/logout">Logout</a>
-     {{else}}
-      <a class="dropdown-item" href="/login">Login</a>
-    {{/if}}
-   
-    
-  </div>
-</div>
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{#if user}}
+                    {{user.Name}}
+                    {{else}}
+                    Account
+                    {{/if}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {{#if user}}
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                    {{else}}
+                    <a class="dropdown-item" href="/login">Login</a>
+                    {{/if}}
+
+
+                </div>
+            </div>
         </div>
     </nav>
 </header>

@@ -47,7 +47,7 @@ module.exports = {
 
 
                     }
-                }).then((response)=>{
+                }).then((response) => {
                     resolve(response)
                 })
 
