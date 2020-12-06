@@ -91,5 +91,17 @@ module.exports = {
             ]).toArray()
             resolve(cartItems[0].cartItems)
         })
+    },
+    getCartCount:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            //by using userid get check the cart of user present or not to cart varibale
+            let count=0
+            let cart=await db.get().collection(collection.CART_COLLECTION).findOne({user:objectId(userId)})
+            if(cart){
+            count=cart.product.length
+            console.log(count)
+            }
+            resolve(count)
+        })
     }
 }
