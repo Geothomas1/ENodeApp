@@ -62,9 +62,9 @@ router.get('/logout', (req, res) => {
   res.redirect('/')
 })
 //cart verification
-router.get('/cart', verifyLogin, (req, res) => {
-  let product=userHelper.getCartProduct(req.session.user._id)
-
+router.get('/cart', verifyLogin, async(req, res) => {
+  let products=await userHelper.getCartProduct(req.session.user._id)
+  console.log(products)
   res.render('user/cart')
 })
 
