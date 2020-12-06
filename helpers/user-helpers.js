@@ -89,7 +89,7 @@ module.exports = {
                     }
                 }
             ]).toArray()
-            resolve(cartItems)
+            resolve(cartItems[0].cartItems)
         })
     }
 }
