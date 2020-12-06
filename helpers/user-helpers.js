@@ -75,12 +75,12 @@ module.exports = {
                 {
                     $lookup: {
                         from: collection.PRODUCT_COLLECTION,
-                        let: { prodList: '$products' },
-                        pipline: [
+                        let: { prodList: '$product' },
+                        pipeline: [
                             {
                                 $match: {
                                     $expr: {
-                                        $in: ['$_id', "$$prodList"]
+                                        $in: ['$_id',"$$prodList"]
                                     }
                                 }
                             }
@@ -89,7 +89,7 @@ module.exports = {
                     }
                 }
             ]).toArray()
-            resolve(cartItem)
+            resolve(cartItems)
         })
     }
 }
