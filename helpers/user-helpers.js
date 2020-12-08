@@ -90,20 +90,20 @@ module.exports = {
                     $match: { user: objectId(userId) }
                 },
                 {
-                    $unwind:'$product'
+                    $unwind: '$product'
                 },
                 {
-                    $project:{
-                        item:'$product.item',
-                        quantity:'$product.quantity'
+                    $project: {
+                        item: '$product.item',
+                        quantity: '$product.quantity'
                     }
                 },
                 {
-                    $lookup:{
-                        from:collection.PRODUCT_COLLECTION,
-                        localField:'item',
-                        foreignField:'_id',
-                        as:'product'
+                    $lookup: {
+                        from: collection.PRODUCT_COLLECTION,
+                        localField: 'item',
+                        foreignField: '_id',
+                        as: 'product'
                     }
                 }
                 // {
@@ -123,8 +123,8 @@ module.exports = {
                 //     }
                 // }
             ]).toArray()
-            console.log(cartItems)
-            resolve(cartItems[0].cartItems)
+            //console.log(cartItems)
+            resolve(cartItems)
         })
     },
     getCartCount: (userId) => {
