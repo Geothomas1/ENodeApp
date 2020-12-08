@@ -90,22 +90,40 @@ module.exports = {
                     $match: { user: objectId(userId) }
                 },
                 {
-                    $lookup: {
-                        from: collection.PRODUCT_COLLECTION,
-                        let: { prodList: '$product' },
-                        pipeline: [
-                            {
-                                $match: {
-                                    $expr: {
-                                        $in: ['$_id', "$$prodList"]
-                                    }
-                                }
-                            }
-                        ],
-                        as: 'cartItems'
+                    $unwind:'$product'
+                },
+                {
+                    $project:{
+                        item:'$product.item',
+                        quantity:'$product.quantity'
+                    }
+                },
+                {
+                    $lookup:{
+                        from:collection.PRODUCT_COLLECTION,
+                        localField:'item',
+                        foreignField:'_id',
+                        as:'product'
                     }
                 }
+                // {
+                //     $lookup: {
+                //         from: collection.PRODUCT_COLLECTION,
+                //         let: { prodList: '$product' },
+                //         pipeline: [
+                //             {
+                //                 $match: {
+                //                     $expr: {
+                //                         $in: ['$_id', "$$prodList"]
+                //                     }
+                //                 }
+                //             }
+                //         ],
+                //         as: 'cartItems'
+                //     }
+                // }
             ]).toArray()
+            console.log(cartItems)
             resolve(cartItems[0].cartItems)
         })
     },
