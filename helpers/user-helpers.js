@@ -52,7 +52,7 @@ module.exports = {
                 let proExist = userCart.product.findIndex(product => product.item == productId)
                 console.log(proExist)
                 if (proExist != -1) {
-                    db.get().collection(collection.CART_COLLECTION).updateOne({ 'product.item': objectId(productId) },
+                    db.get().collection(collection.CART_COLLECTION).updateOne({user:objectId(userId), 'product.item': objectId(productId) },
                         {
                             $inc: { 'product.$.quantity': 1 }
 
@@ -142,6 +142,21 @@ module.exports = {
                 console.log(count)
             }
             resolve(count)
+        })
+    },
+    changeProductQuantity:({cartid,productId,count})=>{
+        return new Promise((resolve,reject)=>{
+
+            db.get().collection(collection.CART_COLLECTION).updateOne({_id:objectId(cartid), 'product.item': objectId(productId) },
+            {
+                $inc: { 'product.$.quantity': count }
+
+            }
+        ).then(() => {
+            resolve()
+        })
+
+
         })
     }
 }
