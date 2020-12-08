@@ -42,22 +42,37 @@ module.exports = {
         })
     },
     addToCart: (productId, userId) => {
+        let proObj={
+            item:objectId(productId),
+            quantity:1
+        }//for count the same product add to cart 
         return new Promise(async (resolve, reject) => {
             let userCart = await db.get().collection(collection.CART_COLLECTION).findOne({ user: objectId(userId) })
             if (userCart) {
+                let proExist=userCart.product.findIndex(product=>product.item==productId)
+                console.log(proExist)
+                if(proExist!=-1){
+                    db.get().collection(collection.CART_COLLECTION).updateOne({'product.item':objectId(productId)},
+                    {
+                        $inc:{'product.$.quantity':1}
+
+                    }
+                    )
+                }
+                /*
                 db.get().collection(collection.CART_COLLECTION).updateOne({ user: objectId(userId) }, {
 
-                    $push: { product: objectId(productId) }
+                    $push: { product: proObj }
 
 
                 }).then((response) => {
                     resolve()
-                })
+                })*/
 
             } else {
                 let cartObj = {
                     user: objectId(userId),
-                    product: [objectId(productId)]
+                    product: [proObj]//that prodduct with count as array
                 }
                 db.get().collection(collection.CART_COLLECTION).insertOne(cartObj).then((response) => {
                     resolve()
