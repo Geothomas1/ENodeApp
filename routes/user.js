@@ -21,7 +21,7 @@ router.get('/', async function (req, res, next) {
   }
   productHelper.getAllProducts().then((products) => {
     //console.log(products)
-    console.log(cartCount)
+    //console.log(cartCount)
     res.render('user/view-products', { products, user, cartCount })
 
   })
@@ -69,15 +69,15 @@ router.get('/logout', (req, res) => {
 //cart verification
 router.get('/cart', verifyLogin, async (req, res) => {
   let products = await userHelper.getCartProduct(req.session.user._id)
-  console.log(products)
+  //console.log(products)
   res.render('user/cart', { products, user: req.session.user })
 })
 
 //add product to cart
 
 router.get('/add-to-cart/:id', (req, res) => {
-  console.log("api-call")
-  console.log('->>>>>',req.session.user._id)
+  //console.log("api-call")
+  //console.log('->>>>>',req.session.user._id)
   userHelper.addToCart(req.params.id, req.session.user._id).then(() => {
     //res.redirect('/')
     res.json({ status: true })
@@ -87,9 +87,10 @@ router.get('/add-to-cart/:id', (req, res) => {
 
 router.post('/change-product-quantity',(req,res)=>{
   //console.log(req.body)
-  userHelper.changeProductQuantity(req.body).then(()=>{
+  userHelper.changeProductQuantity(req.body).then((response)=>{
+    console.log(response)
 //need to code the ajax auto update on quantity count to client 
-    
+    res.json({status:true,response})
   })
 })
 

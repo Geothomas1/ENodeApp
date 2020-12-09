@@ -26,7 +26,14 @@ function  changeQuantity(cartId,ProductId,count)
         },
         method:'post',
         success:(response)=>{
-            alert(response)
+            if (response.status) {
+            
+                let quantity=$('#cquantity').html()
+                console.log(response,"in scriptjs")
+                count=parseInt(count)+response
+                $('#cquantity').html(count)
+            }
+            
         }
     })
 

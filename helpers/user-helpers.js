@@ -156,7 +156,8 @@ module.exports = {
             }
         ).then(() => {
             //need to code the ajax auto update on quantity count to client 
-            resolve()
+            
+            resolve(details)
         })
 
 
