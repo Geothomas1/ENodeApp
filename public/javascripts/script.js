@@ -30,8 +30,13 @@ function  changeQuantity(cartId,ProductId,count)
         method:'post',
         success:(response)=>{
             if (response.removeProduct) {
+                alert("Product Removed from Cart")
+                location.reload()
             
                 
+            }else{
+                document.getElementById(productId).innerHTML=quantity+count
+
             }
             
         }
