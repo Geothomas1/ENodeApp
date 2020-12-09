@@ -88,7 +88,7 @@ router.get('/add-to-cart/:id', (req, res) => {
 router.post('/change-product-quantity',(req,res,next)=>{
   //console.log(req.body)
   userHelper.changeProductQuantity(req.body).then((response)=>{
-    //console.log(response)
+    console.log(response)
 //need to code the ajax auto update on quantity count to client code settings....
     res.json(response)
   })
