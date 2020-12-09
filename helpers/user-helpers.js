@@ -154,8 +154,8 @@ module.exports = {
                 $inc: { 'product.$.quantity':details.count }
 
             }
-        ).then(() => {
-            //console.log(response)
+        ).then((response) => {
+            //need to code the ajax auto update on quantity coumtt to client 
             resolve()
         })
 
