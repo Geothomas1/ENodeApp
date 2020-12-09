@@ -2,6 +2,7 @@ var db = require('../config/connection')
 var collection = require('../config/collections')
 const bcrypt = require('bcrypt')
 const { response } = require('../app')
+const { reject } = require('bcrypt/promises')
 var objectId = require('mongodb').ObjectID
 module.exports = {
     doSignup: (userData) => {
@@ -52,7 +53,7 @@ module.exports = {
                 let proExist = userCart.product.findIndex(product => product.item == productId)
                 console.log(proExist)
                 if (proExist != -1) {
-                    db.get().collection(collection.CART_COLLECTION).updateOne({user:objectId(userId), 'product.item': objectId(productId) },
+                    db.get().collection(collection.CART_COLLECTION).updateOne({ user: objectId(userId), 'product.item': objectId(productId) },
                         {
                             $inc: { 'product.$.quantity': 1 }
 
@@ -107,8 +108,8 @@ module.exports = {
                     }
                 },
                 {
-                    $project:{
-                        item:1,quantity:1,product:{$arrayElemAt:['$product',0]}
+                    $project: {
+                        item: 1, quantity: 1, product: { $arrayElemAt: ['$product', 0] }
                     }
                 }
                 // {
@@ -144,23 +145,46 @@ module.exports = {
             resolve(count)
         })
     },
-    changeProductQuantity:(details)=>{
+    changeProductQuantity: (details) => {
         //console.log(cartid,productId)
-        details.count=parseInt(details.count)
-        return new Promise((resolve,reject)=>{
+        details.count = parseInt(details.count)
+        details.quantity = parseInt(details.quantity)
+        return new Promise((resolve, reject) => {
+            if (details.count == -1 && details.quantity == 1) {
 
-            db.get().collection(collection.CART_COLLECTION).updateOne({_id:objectId(details.cart), 'product.item': objectId(details.product) },
-            {
-                $inc: { 'product.$.quantity':details.count }
+                db.get().collection(collection.CART_COLLECTION).updateOne({ _id: objectId(details.cart) },
+                    {
+                        $pull: { product: { item: objectId(details.product) } }
+                    }).then((response) => {
+                        resolve({ removeProduct: true })
+                    })
+            } else {
+                db.get().collection(collection.CART_COLLECTION).updateOne({ _id: objectId(details.cart), 'product.item': objectId(details.product) },
+                    {
+                        $inc: { 'product.$.quantity': details.count }
 
+                    }).then((response) => {
+                        resolve(true)
+                    })
             }
-        ).then(() => {
-            //need to code the ajax auto update on quantity count to client 
-            
-            resolve(details)
-        })
 
 
         })
     }
+    // return new Promise((resolve,reject)=>{
+
+    //     db.get().collection(collection.CART_COLLECTION).updateOne({_id:objectId(details.cart), 'product.item': objectId(details.product) },
+    //     {
+    //         $inc: { 'product.$.quantity':details.count }
+
+    //     }
+    // ).then(() => {
+    //     //need to code the ajax auto update on quantity count to client 
+
+    //     resolve(details)
+    // })
+
+
+    // })
+
 }

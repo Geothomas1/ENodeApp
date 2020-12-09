@@ -16,22 +16,22 @@ function addToCart(productId) {
 
 function  changeQuantity(cartId,ProductId,count)
 {
+    let quantity=parseInt(document.getElementById(productId).innerHTML)
+    count=parseInt(count)
     $.ajax({
         url:'/change-product-quantity',
         data:{
             cart:cartId,
             product:ProductId,
-            count:count
+            count:count,
+            quantity:quantity
 
         },
         method:'post',
         success:(response)=>{
-            if (response.status) {
+            if (response.removeProduct) {
             
-                let quantity=$('#cquantity').html()
-                console.log(response,"in scriptjs")
-                count=parseInt(count)+response
-                $('#cquantity').html(count)
+                
             }
             
         }
