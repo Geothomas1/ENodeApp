@@ -77,6 +77,7 @@ router.get('/cart', verifyLogin, async (req, res) => {
 
 router.get('/add-to-cart/:id', (req, res) => {
   console.log("api-call")
+  console.log('->>>>>',req.session.user._id)
   userHelper.addToCart(req.params.id, req.session.user._id).then(() => {
     //res.redirect('/')
     res.json({ status: true })
@@ -87,6 +88,7 @@ router.get('/add-to-cart/:id', (req, res) => {
 router.post('/change-product-quantity',(req,res)=>{
   //console.log(req.body)
   userHelper.changeProductQuantity(req.body).then(()=>{
+
     
   })
 })

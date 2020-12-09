@@ -13,3 +13,22 @@ function addToCart(productId) {
         }
     })
 }
+
+function  changeQuantity(cartId,ProductId,count)
+{
+    $.ajax({
+        url:'/change-product-quantity',
+        data:{
+            cart:cartId,
+            product:ProductId,
+            count:count
+
+        },
+        method:'post',
+        success:(response)=>{
+            alert(response)
+        }
+    })
+
+}
+
