@@ -14,3 +14,36 @@ function addToCart(productId) {
     })
 }
 
+
+function  changeQuantity(cartId,ProductId,count)
+{
+   
+   // let quantity=parseInt(document.getElementById(productId).innerHTML)
+    //count=parseInt(count)
+
+    $.ajax({
+        url:'/change-product-quantity',
+        data:{
+            cart:cartId,
+            product:ProductId,
+            count:count,
+            //quantity:quantity
+
+        },
+        method:'post',
+        success:(response)=>{
+
+            alert(response)
+            //if (response.removeProduct) {
+                //alert("Product Removed from Cart")
+                //location.reload()
+                
+           // }else{
+                //document.getElementById(productId).innerHTML=quantity+count
+
+            }
+            
+        
+    })
+
+}

@@ -146,45 +146,56 @@ module.exports = {
         })
     },
     changeProductQuantity: (details) => {
-        //console.log(cartid,productId)
-        details.count = parseInt(details.count)
-        details.quantity = parseInt(details.quantity)
+        details.count=parseInt(details.count)
         return new Promise((resolve, reject) => {
-            if (details.count == -1 && details.quantity == 1) {
 
-                db.get().collection(collection.CART_COLLECTION).updateOne({ _id: objectId(details.cart) },
-                    {
-                        $pull: { product: { item: objectId(details.product) } }
-                    }).then((response) => {
-                        resolve({ removeProduct: true })
-                    })
-            } else {
-                db.get().collection(collection.CART_COLLECTION).updateOne({ _id: objectId(details.cart), 'product.item': objectId(details.product) },
-                    {
-                        $inc: { 'product.$.quantity': details.count }
+            db.get().collection(collection.CART_COLLECTION).updateOne({_id:objectId(details.cart),'product.item':objectId(details.product) },
+                {
+                    $inc: { 'product.$.quantity':details.count }
 
-                    }).then((response) => {
-                        resolve(true)
-                    })
-            }
+                }
+            ).then(() => {
+                //need to code the ajax auto update on quantity count to client 
+
+                resolve()
+            })
 
 
         })
     }
-    // return new Promise((resolve,reject)=>{
 
-    //     db.get().collection(collection.CART_COLLECTION).updateOne({_id:objectId(details.cart), 'product.item': objectId(details.product) },
-    //     {
-    //         $inc: { 'product.$.quantity':details.count }
+    //console.log(details)
+    //console.log(cartid,productId)
+    // details.count = parseInt(details.count)
+    // details.quantity = parseInt(details.quantity)
+    // console.log(details)
+    // return new Promise((resolve, reject) => {
+    //     if (details.count == -1 && details.quantity == 1) {
 
+    //         db.get().collection(collection.CART_COLLECTION).updateOne({ _id: objectId(details.cart) },
+    //             {
+    //                 $pull: { product: { item: objectId(details.product) } }
+    //             }).then((response) => {
+    //                 resolve({ removeProduct: true })
+    //             }).catch((err)=>{
+    //                 console.log(err)
+    //             })
+    //     } else {
+    //         db.get().collection(collection.CART_COLLECTION).updateOne({ _id: objectId(details.cart), 'product.item': objectId(details.product) },
+    //             {
+    //                 $inc: { 'product.$.quantity': details.count }
+
+    //             }).then((response) => {
+    //                 resolve(true)
+    //             }).catch((err)=>{
+    //                 console.log(err)
+    //             })
     //     }
-    // ).then(() => {
-    //     //need to code the ajax auto update on quantity count to client 
-
-    //     resolve(details)
-    // })
 
 
     // })
+
+
+
 
 }
