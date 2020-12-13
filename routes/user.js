@@ -102,8 +102,14 @@ router.post('/remove-product', (req, res) => {
   })
 })
 //place-order page router
-router.get('/place-order',(req,res)=>{
-  res.render('user/place-order')
+router.get('/place-order',verifyLogin, async(req,res)=>{
+  
+  let total=await userHelper.getTotalAmount(req.session.user._id).then(()=>{
+    res.render('user/place-order')
+
+  })
+
+
 
 })
 
