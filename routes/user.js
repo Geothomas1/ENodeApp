@@ -101,6 +101,11 @@ router.post('/remove-product', (req, res) => {
 
   })
 })
+//place-order page router
+router.get('/place-order',(req,res)=>{
+  res.render('user/place-order')
+
+})
 
 
 module.exports = router;
