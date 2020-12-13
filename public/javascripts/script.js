@@ -62,6 +62,7 @@ function removeProduct(cartId,productId){
         },
         method:'post',
         success:(response)=>{
+            alert(response)
 
         }
     })
