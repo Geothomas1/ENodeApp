@@ -146,12 +146,12 @@ module.exports = {
         })
     },
     changeProductQuantity: (details) => {
-        details.count=parseInt(details.count)
+        details.count = parseInt(details.count)
         return new Promise((resolve, reject) => {
 
-            db.get().collection(collection.CART_COLLECTION).updateOne({_id:objectId(details.cart),'product.item':objectId(details.product) },
+            db.get().collection(collection.CART_COLLECTION).updateOne({ _id: objectId(details.cart), 'product.item': objectId(details.product) },
                 {
-                    $inc: { 'product.$.quantity':details.count }
+                    $inc: { 'product.$.quantity': details.count }
 
                 }
             ).then(() => {
@@ -163,12 +163,12 @@ module.exports = {
 
         })
     },
-    removeProduct:(details)=>{
-        return new Promise((resolve,reject)=>{
-            db.get().collection(collection.CART_COLLECTION).updateOne({_id:objectId(details.cart)},{
-                $pull:{product:{item:objectId(details.product)}}
-            }).then((response)=>{
-                resolve({removeProduct:true})
+    removeProduct: (details) => {
+        return new Promise((resolve, reject) => {
+            db.get().collection(collection.CART_COLLECTION).updateOne({ _id: objectId(details.cart) }, {
+                $pull: { product: { item: objectId(details.product) } }
+            }).then((response) => {
+                resolve({ removeProduct: true })
             })
         })
     }

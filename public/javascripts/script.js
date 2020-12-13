@@ -17,53 +17,56 @@ function addToCart(productId) {
 }
 
 
-function  changeQuantity(cartId,ProductId,count)
-{
-   
-   // let quantity=parseInt(document.getElementById(productId).innerHTML)
+function changeQuantity(cartId, ProductId, count) {
+
+    // let quantity=parseInt(document.getElementById(productId).innerHTML)
     //count=parseInt(count)
 
     $.ajax({
-        url:'/change-product-quantity',
-        data:{
-            cart:cartId,
-            product:ProductId,
-            count:count,
+        url: '/change-product-quantity',
+        data: {
+            cart: cartId,
+            product: ProductId,
+            count: count,
             //quantity:quantity
 
         },
-        method:'post',
-        success:(response)=>{
+        method: 'post',
+        success: (response) => {
 
             alert(response)
             //if (response.removeProduct) {
-                //alert("Product Removed from Cart")
-                //location.reload()
-                
-           // }else{
-                //document.getElementById(productId).innerHTML=quantity+count
+            //alert("Product Removed from Cart")
+            //location.reload()
 
-            }
-            
-        
+            // }else{
+            //document.getElementById(productId).innerHTML=quantity+count
+
+        }
+
+
     })
 
 }
 
 //Remove product Ajax
 
-function removeProduct(cartId,productId){
+function removeProduct(cartId, productId) {
 
     $.ajax({
-        url:'/remove-product',
-        data:{
-            cart:cartId,
-            product:productId
+        url: '/remove-product',
+        data: {
+            cart: cartId,
+            product: productId
         },
-        method:'post',
-        success:(response)=>{
-            alert(response)
+        method: 'post',
+        success: (response) => {
+            if (response.removeProduct) {
+                //alert(response)
+                alert("Product Removed from Cart")
+                location.reload()
 
+            }
         }
     })
 }
