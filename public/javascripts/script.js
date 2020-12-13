@@ -1,3 +1,5 @@
+const { response } = require("../../app")
+
 function addToCart(productId) {
     $.ajax({
         url: '/add-to-cart/' + productId,
@@ -46,4 +48,21 @@ function  changeQuantity(cartId,ProductId,count)
         
     })
 
+}
+
+//Remove product Ajax
+
+function removeProduct(cartId,productId){
+
+    $.ajax({
+        url:'/remove-product',
+        data:{
+            cart:cartId,
+            product:productId
+        },
+        method:'post',
+        success:(response)=>{
+
+        }
+    })
 }
