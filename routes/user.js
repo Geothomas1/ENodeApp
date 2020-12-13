@@ -1,7 +1,8 @@
 var express = require('express');
 const { response } = require('../app');
 var router = express.Router();
-var productHelper = require('../helpers/product-helper')
+var productHelper = require('../helpers/product-helper');
+const userHelpers = require('../helpers/user-helpers');
 var userHelper = require('../helpers/user-helpers')
 //verifylogin
 const verifyLogin = (req, res, next) => {

@@ -203,8 +203,7 @@ module.exports = {
                 },
 
                 {
-                    $group: {
-                        _id: null,
+                    $project: {
                         total: { $sum: { $multiply: ['$product.quantity', '$product.price'] } }
                     }
                 }
@@ -212,7 +211,7 @@ module.exports = {
             ]).toArray()
 
             console.log(total)
-            resolve(total)
+            //resolve(total)
         })
 
 
